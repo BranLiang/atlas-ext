@@ -1,3 +1,6 @@
+import { ReactNode } from "react";
+import { createRoot } from "react-dom/client";
+
 export const getIusseNum = (): string | null => {
   const title = document.getElementById("page-title")?.textContent;
   const match = title?.match(/第\s?(\d+)\s?期/);
@@ -14,4 +17,27 @@ export const isSectionItem = (item: Element): boolean => {
 
 export const isSection = (item: Element): boolean => {
   return item.tagName.toLowerCase() === "h2";
+};
+
+export const appendNode = (target: Element, node: ReactNode) => {
+  const parentNode = target.parentNode;
+  if (!parentNode) {
+    return;
+  }
+  const wrapperContainer = document.createElement("div");
+  wrapperContainer.style.display = "flex";
+  parentNode.insertBefore(wrapperContainer, target);
+  wrapperContainer.appendChild(target);
+
+  const triggerContainer = document.createElement("div");
+  const targetStyles = getComputedStyle(target);
+  triggerContainer.style.padding = targetStyles.padding;
+  triggerContainer.style.margin = targetStyles.margin;
+  triggerContainer.style.display = "flex";
+  triggerContainer.style.alignItems = "center";
+  triggerContainer.style.justifyContent = "center";
+  triggerContainer.style.marginLeft = "10px";
+  wrapperContainer.appendChild(triggerContainer);
+  const root = createRoot(triggerContainer);
+  root.render(node);
 };

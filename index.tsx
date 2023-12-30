@@ -1,8 +1,19 @@
+import Toggle from "./components/toggle";
 import { fetchIssuePublications, findPublication } from "./utils/api";
-import { getIusseNum, isSection, isSectionItem } from "./utils/dom";
+import { appendNode, getIusseNum, isSection, isSectionItem } from "./utils/dom";
 
 const issueNum = getIusseNum();
 const main = document.getElementById("main-content");
+
+const show = (publicationId: number) => {
+  window.dispatchEvent(
+    new CustomEvent("atlas-ext-show", {
+      detail: {
+        publicationId,
+      },
+    })
+  );
+};
 
 if (main && issueNum) {
   fetchIssuePublications(issueNum).then((publications) => {
@@ -14,9 +25,7 @@ if (main && issueNum) {
         currentSection = current.textContent!;
         const publication = findPublication(publications, currentSection);
         if (publication) {
-          console.log(`Found section ${currentSection}`);
-          console.log(publication);
-          // inject(current, publication.id);
+          appendNode(current, <Toggle onClick={() => show(publication.id)} />);
         } else {
           currentSection = null;
         }
@@ -31,9 +40,7 @@ if (main && issueNum) {
           itemIndex
         );
         if (publication) {
-          console.log(`Found ${publication.id} for ${currentSection}`);
-          console.log(publication);
-          // inject(current, publication.id);
+          appendNode(current, <Toggle onClick={() => show(publication.id)} />);
         }
       }
     }
