@@ -26,8 +26,6 @@ if (main && issueNum) {
         const publication = findPublication(publications, currentSection);
         if (publication) {
           appendNode(current, <Toggle onClick={() => show(publication.id)} />);
-        } else {
-          currentSection = null;
         }
         continue;
       }

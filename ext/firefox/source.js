@@ -24841,6 +24841,7 @@ var fetchIssuePublications = async (issueNum) => {
   return data.publications;
 };
 var findPublication = (publications, sectionTitle, itemIndex = null) => {
+  console.log(publications, sectionTitle, itemIndex);
   return publications.find((item) => item.item_index === itemIndex && item.section === sectionTitle) || null;
 };
 
@@ -24888,7 +24889,6 @@ var jsx_dev_runtime2 = __toESM(require_jsx_dev_runtime(), 1);
 var issueNum = getIusseNum();
 var main = document.getElementById("main-content");
 var show = (publicationId) => {
-  console.log("show", publicationId);
   window.dispatchEvent(new CustomEvent("atlas-ext-show", {
     detail: {
       publicationId
@@ -24907,13 +24907,12 @@ if (main && issueNum) {
           appendNode(current, jsx_dev_runtime2.jsxDEV(toggle_default, {
             onClick: () => show(publication.id)
           }, undefined, false, undefined, this));
-        } else {
-          currentSection = null;
         }
         continue;
       }
       if (isSectionItem(current) && currentSection) {
         const itemIndex = parseInt(current.textContent.split("\u3001")[0]);
+        console.log(currentSection, itemIndex);
         const publication = findPublication(publications, currentSection, itemIndex);
         if (publication) {
           appendNode(current, jsx_dev_runtime2.jsxDEV(toggle_default, {
