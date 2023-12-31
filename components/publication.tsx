@@ -90,7 +90,7 @@ const Publication: React.FC<PublicationProps> = ({
         {url ? (
           <Link href={url} target="_blank">
             <Title>{title}</Title>
-            <ExternalLink size={18} color="#6b7280" />
+            <ExternalLink size={14} color="#6b7280" />
           </Link>
         ) : (
           <Title>{title}</Title>

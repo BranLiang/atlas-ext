@@ -28,11 +28,6 @@ const Container = styled.div<{ $open?: boolean }>`
         `}
 `;
 
-const RelativeContainer = styled.div`
-  position: relative;
-  height: 100%;
-`;
-
 const CloseButton = styled.button`
   position: sticky;
   top: 0;
@@ -43,18 +38,22 @@ const CloseButton = styled.button`
   border: none;
   cursor: pointer;
   outline: none;
-  background-color: #8b5cf6;
+  background-color: #f3f4f6;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 20;
   &:hover {
-    background-color: #7c3aed;
+    background-color: #e5e7eb;
   }
 
   svg {
-    color: #f1f5f9;
+    color: #0c4a6e;
+  }
+
+  &:hover > svg {
+    color: #111827;
   }
 `;
 
