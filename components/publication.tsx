@@ -1,3 +1,4 @@
+import { ExternalLink } from "lucide-react";
 import React from "react";
 import Markdown from "react-markdown";
 import styled from "styled-components";
@@ -15,42 +16,47 @@ const Wrapper = styled.div`
 `;
 
 const IssueTag = styled.div`
-  background-color: #f3f4f6;
-  border-radius: 10px;
-  padding: 5px 10px;
+  text-transform: uppercase;
+  padding: 2px 4px;
   font-weight: bold;
-  font-size: 0.8rem;
+  font-size: small;
+  border-radius: 2px;
   display: inline-block;
+  color: #0c4a6e;
 `;
 
 const Title = styled.h2`
-  text-transform: uppercase;
-  background-clip: text;
-  font-weight: bold;
-  font-size: x-large;
-  color: transparent;
+  font-weight: normal;
+  font-size: medium;
   display: inline-block;
-  background-image: linear-gradient(to right, #ec4899, #8b5cf6);
+  color: #262626;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande";
+  border: none;
+  margin-right: 6px;
 `;
 
 const Link = styled.a`
   text-decoration: none;
   font-weight: bold;
-  &:hover {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &:hover > h2 {
     text-decoration: underline;
     text-decoration-color: #8b5cf6;
     text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
   }
 `;
 
 const MarkdownWrapper = styled.div`
   img {
     max-width: 100%;
-    border-radius: 1rem;
+    border: none;
   }
 
   p:has(img) {
-    padding: 10px 20px;
+    padding: 12px;
   }
 
   & > p {
@@ -58,7 +64,18 @@ const MarkdownWrapper = styled.div`
       "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
     font-size: small;
     line-height: normal;
+    margin-bottom: 6px;
   }
+`;
+
+const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 36px;
+  padding: 6px 0;
+  background-color: #f3f4f6;
 `;
 
 const Publication: React.FC<PublicationProps> = ({
@@ -69,14 +86,17 @@ const Publication: React.FC<PublicationProps> = ({
 }) => {
   return (
     <Wrapper>
-      <IssueTag>Issue #{issueNumber}</IssueTag>
-      {url ? (
-        <Link href={url}>
+      <Header>
+        {url ? (
+          <Link href={url} target="_blank">
+            <Title>{title}</Title>
+            <ExternalLink size={18} color="#6b7280" />
+          </Link>
+        ) : (
           <Title>{title}</Title>
-        </Link>
-      ) : (
-        <Title>{title}</Title>
-      )}
+        )}
+        <IssueTag>Issue #{issueNumber}</IssueTag>
+      </Header>
       <MarkdownWrapper>
         <Markdown>{content}</Markdown>
       </MarkdownWrapper>

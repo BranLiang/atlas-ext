@@ -4,7 +4,6 @@ import {
   PublicationWithDescription,
   fetchSimilarPublications,
 } from "../utils/api";
-import Preflight from "./preflight";
 
 interface CustomEventDetail {
   publicationId: number;
@@ -36,13 +35,11 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <Preflight>
-      <Sidebar
-        open={open}
-        handleClose={() => setOpen(false)}
-        publications={publications}
-      />
-    </Preflight>
+    <Sidebar
+      open={open}
+      handleClose={() => setOpen(false)}
+      publications={publications}
+    />
   );
 };
 

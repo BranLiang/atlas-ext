@@ -34,26 +34,40 @@ const RelativeContainer = styled.div`
 `;
 
 const CloseButton = styled.button`
-  position: absolute;
-  top: 10px;
-  right: 10px;
+  position: sticky;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 36px;
+  width: 100%;
   border: none;
-  background: transparent;
   cursor: pointer;
   outline: none;
+  background-color: #8b5cf6;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 20;
+  &:hover {
+    background-color: #7c3aed;
+  }
+
+  svg {
+    color: #f1f5f9;
+  }
 `;
 
 const ContentContainer = styled.div`
-  padding: 10px;
+  padding: 12px;
+  padding-top: 0;
 `;
 
-const Title = styled.h2`
-  text-transform: uppercase;
-  background-clip: text;
-  font-weight: bold;
-  font-size: x-large;
-  color: transparent;
-  background-image: linear-gradient(to right, #ec4899, #8b5cf6);
+const Splitter = styled.hr`
+  border: none;
+  height: 1px;
+  background-color: #e0e0e0;
+  margin: 6px 0;
 `;
 
 interface SidebarProps {
@@ -69,23 +83,22 @@ const Sidebar: React.FC<SidebarProps> = ({
 }) => {
   return (
     <Container $open={open}>
-      <RelativeContainer>
-        <CloseButton onClick={handleClose}>
-          <XCircle />
-        </CloseButton>
-        <ContentContainer>
-          <Title>Related</Title>
-          {publications.map((publication) => (
+      <CloseButton onClick={handleClose}>
+        <XCircle />
+      </CloseButton>
+      <ContentContainer>
+        {publications.map((publication, index) => (
+          <React.Fragment key={publication.id}>
             <Publication
-              key={publication.id}
               issueNumber={publication.issue_id}
               title={publication.title}
               url={publication.url}
               content={publication.description}
             />
-          ))}
-        </ContentContainer>
-      </RelativeContainer>
+            {index < publications.length - 1 && <Splitter />}
+          </React.Fragment>
+        ))}
+      </ContentContainer>
     </Container>
   );
 };
