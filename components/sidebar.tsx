@@ -66,7 +66,7 @@ const Splitter = styled.hr`
   border: none;
   height: 1px;
   background-color: #e0e0e0;
-  margin: 6px 0;
+  margin: 12px 0;
 `;
 
 interface SidebarProps {

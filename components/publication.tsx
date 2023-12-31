@@ -66,6 +66,29 @@ const MarkdownWrapper = styled.div`
     line-height: normal;
     margin-bottom: 6px;
   }
+
+  blockquote {
+    margin: 6px 0;
+    padding-left: 1em;
+    border-left: 0.5em solid #d1d5db;
+  }
+
+  blockquote > p {
+    font-size: small;
+    font-style: italic;
+    font-weight: normal;
+    line-height: normal;
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande";
+    color: #6b7280;
+  }
+
+  a {
+    color: #8b5cf6;
+    text-decoration: underline;
+    &:hover {
+      color: #6d28d9;
+    }
+  }
 `;
 
 const Header = styled.div`
@@ -98,7 +121,7 @@ const Publication: React.FC<PublicationProps> = ({
         <IssueTag>Issue #{issueNumber}</IssueTag>
       </Header>
       <MarkdownWrapper>
-        <Markdown>{content}</Markdown>
+        <Markdown skipHtml={true}>{content}</Markdown>
       </MarkdownWrapper>
     </Wrapper>
   );
