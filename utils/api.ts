@@ -8,6 +8,8 @@ export interface Publication {
 export interface PublicationWithDescription extends Publication {
   description: string;
   url: string | null;
+  issue_id: number;
+  source: string;
 }
 
 const apiUrl = "https://atlas.brancraft.com/api";

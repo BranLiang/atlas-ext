@@ -1,17 +1,21 @@
 import { XCircle } from "lucide-react";
 import React from "react";
 import styled, { css } from "styled-components";
+import { PublicationWithDescription } from "../utils/api";
+import Publication from "./publication";
 
 const Container = styled.div<{ $open?: boolean }>`
   border-left: 1px solid #e0e0e0;
+  box-shadow: -4px 0px 10px rgba(0, 0, 0, 0.1);
   height: 100%;
-  width: 300px;
+  width: 400px;
   position: fixed;
   right: 0;
   top: 0;
   transition: transform 0.3s ease-in-out;
   background-color: #f3f4f6;
   z-index: 10;
+  overflow-y: scroll;
 
   // Applying dynamic styles based on the open prop
   ${(props) =>
@@ -55,9 +59,14 @@ const Title = styled.h2`
 interface SidebarProps {
   open: boolean;
   handleClose: () => void;
+  publications: PublicationWithDescription[];
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ open, handleClose }) => {
+const Sidebar: React.FC<SidebarProps> = ({
+  open,
+  handleClose,
+  publications,
+}) => {
   return (
     <Container $open={open}>
       <RelativeContainer>
@@ -66,6 +75,15 @@ const Sidebar: React.FC<SidebarProps> = ({ open, handleClose }) => {
         </CloseButton>
         <ContentContainer>
           <Title>Related</Title>
+          {publications.map((publication) => (
+            <Publication
+              key={publication.id}
+              issueNumber={publication.issue_id}
+              title={publication.title}
+              url={publication.url}
+              content={publication.description}
+            />
+          ))}
         </ContentContainer>
       </RelativeContainer>
     </Container>
