@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { createRoot } from "react-dom/client";
+import App from "../components/app";
 
 export const getIusseNum = (): string | null => {
   const title = document.getElementById("page-title")?.textContent;
@@ -40,4 +41,11 @@ export const appendNode = (target: Element, node: ReactNode) => {
   wrapperContainer.appendChild(triggerContainer);
   const root = createRoot(triggerContainer);
   root.render(node);
+};
+
+export const mountApp = () => {
+  const app = document.createElement("div");
+  document.body.appendChild(app);
+  const root = createRoot(app);
+  root.render(<App />);
 };

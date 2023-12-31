@@ -3,7 +3,7 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "build": "bun build index.tsx --outdir build",
+    "build": "bun build index.tsx --outdir build --minify",
     "build-firefox": "bun run build && cp build/index.js ext/firefox/source.js"
   },
   "devDependencies": {
@@ -16,6 +16,7 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "lucide-react": "^0.303.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "styled-components": "^6.1.6"

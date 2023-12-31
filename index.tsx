@@ -1,6 +1,12 @@
 import Toggle from "./components/toggle";
 import { fetchIssuePublications, findPublication } from "./utils/api";
-import { appendNode, getIusseNum, isSection, isSectionItem } from "./utils/dom";
+import {
+  appendNode,
+  getIusseNum,
+  isSection,
+  isSectionItem,
+  mountApp,
+} from "./utils/dom";
 
 const issueNum = getIusseNum();
 const main = document.getElementById("main-content");
@@ -16,6 +22,7 @@ const show = (publicationId: number) => {
 };
 
 if (main && issueNum) {
+  mountApp();
   fetchIssuePublications(issueNum).then((publications) => {
     let currentSection = null;
     for (let i = 0; i < main.children.length; i++) {
