@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "build": "bun build index.tsx --outdir build --minify",
-    "build-firefox": "bun run build && cp build/index.js ext/firefox/source.js"
+    "build-firefox": "bun run build && cp build/index.js ext/firefox/source.js",
+    "package-firefox": "bun run build-firefox && cd ext/firefox && zip -r ../../build/firefox.zip *"
   },
   "devDependencies": {
     "@types/react": "^18.2.46",

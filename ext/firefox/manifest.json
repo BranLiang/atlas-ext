@@ -1,12 +1,13 @@
 {
   "manifest_version": 2,
-  "name": "Related Insights",
+  "name": "IssueExplorer",
   "version": "0.1",
 
-  "description": "Show related insights on the page",
+  "description": "Tailored for readers of Ruanyifeng's 科技爱好者周刊, it enhances each issue by providing relevant contents.",
 
   "icons": {
-    "48": "icons/sample.png"
+    "48": "icons/logo@48.png",
+    "512": "icons/logo@512.png"
   },
 
   "content_scripts": [
