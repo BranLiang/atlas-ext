@@ -41,19 +41,6 @@ const Splitter = styled.hr`
 `;
 
 const CloseButton = styled.button<{ $open?: boolean }>`
-  position: fixed;
-  top: 12px;
-  right: 412px;
-  background-color: #f3f4f6;
-  box-shadow: -4px 0px 10px rgba(0, 0, 0, 0.1);
-  border: none;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 10;
   cursor: pointer;
   transition: transform 0.3s ease-in-out;
 
@@ -64,15 +51,6 @@ const CloseButton = styled.button<{ $open?: boolean }>`
   &:hover svg {
     transform: rotate(90deg);
   }
-
-  ${(props) =>
-    props.$open
-      ? css`
-          transform: translateY(0);
-        `
-      : css`
-          transform: translateY(-200%);
-        `}
 `;
 
 const rotate = keyframes`
@@ -84,32 +62,39 @@ const rotate = keyframes`
     }
 `;
 
-const Loader = styled.div<{ $open?: boolean }>`
-  position: fixed;
-  top: 12px;
-  right: 412px;
-  background-color: #f3f4f6;
-  box-shadow: -4px 0px 10px rgba(0, 0, 0, 0.1);
-  border: none;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 10;
-  cursor: pointer;
+const Loader = styled.div`
   svg {
     animation: ${rotate} 1s linear infinite;
+  }
+`;
+
+const ButtonWrapper = styled.div<{ $open?: boolean }>`
+  position: fixed;
+  top: -30px;
+  right: 412px;
+  z-index: 10;
+  transition: transform 0.3s ease-in-out;
+
+  &,
+  button {
+    background-color: #f3f4f6;
+    box-shadow: -4px 0px 10px rgba(0, 0, 0, 0.1);
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   ${(props) =>
     props.$open
       ? css`
-          transform: translateY(0);
+          transform: translateY(42px);
         `
       : css`
-          transform: translateY(-200%);
+          transform: translateY(-42px);
         `}
 `;
 
@@ -143,16 +128,18 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <>
-      {loading && (
-        <Loader $open={open}>
-          <Loader2 size={18} strokeWidth={4} color="#6b7280" />
-        </Loader>
-      )}
-      {!loading && (
-        <CloseButton $open={open} onClick={handleHide}>
-          <XIcon size={18} strokeWidth={4} color="#6b7280" />
-        </CloseButton>
-      )}
+      <ButtonWrapper $open={open}>
+        {loading && (
+          <Loader>
+            <Loader2 size={18} strokeWidth={4} color="#6b7280" />
+          </Loader>
+        )}
+        {!loading && (
+          <CloseButton onClick={handleHide}>
+            <XIcon size={18} strokeWidth={4} color="#6b7280" />
+          </CloseButton>
+        )}
+      </ButtonWrapper>
       <Container $open={open} ref={containerRef}>
         <ContentContainer>
           {publications.map((publication, index) => (
