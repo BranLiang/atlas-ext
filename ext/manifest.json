@@ -10,6 +10,13 @@
     "512": "icons/logo@512.png"
   },
 
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{019afe99-da07-41d4-a53c-4cb6c139f818}",
+      "strict_min_version": "109.0"
+    }
+  },
+
   "content_scripts": [
     {
       "matches": ["https://www.ruanyifeng.com/blog/*/*/weekly-issue-*.html"],

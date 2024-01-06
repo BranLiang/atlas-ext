@@ -18,7 +18,7 @@ Tailored for readers of Ruanyifeng's 科技爱好者周刊, it enhances each iss
 
 3. **Build for Firefox:**
    ```bash
-   bun run package-firefox
+   bun run package
    ```
 
 ### Screenshorts
