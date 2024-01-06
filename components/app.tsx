@@ -23,14 +23,21 @@ const App: React.FC = () => {
     });
   };
 
+  const handleHide = () => {
+    setOpen(false);
+    setPublications([]);
+  };
+
   useEffect(() => {
     window.addEventListener("atlas-ext-show", handleEvent as EventListener);
+    window.addEventListener("atlas-ext-hide", handleHide);
 
     return () => {
       window.removeEventListener(
         "atlas-ext-show",
         handleEvent as EventListener
       );
+      window.removeEventListener("atlas-ext-hide", handleHide);
     };
   }, []);
 

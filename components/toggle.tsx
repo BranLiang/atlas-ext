@@ -7,6 +7,10 @@ const Button = styled.button`
   cursor: pointer;
   outline: none;
 
+  svg {
+    color: #8b8b8b;
+  }
+
   &:hover > svg {
     color: #4d7c0f;
   }

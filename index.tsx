@@ -6,20 +6,11 @@ import {
   isSection,
   isSectionItem,
   mountApp,
+  toggleItem,
 } from "./utils/dom";
 
 const issueNum = getIusseNum();
 const main = document.getElementById("main-content");
-
-const show = (publicationId: number) => {
-  window.dispatchEvent(
-    new CustomEvent("atlas-ext-show", {
-      detail: {
-        publicationId,
-      },
-    })
-  );
-};
 
 if (main && issueNum) {
   mountApp();
@@ -32,7 +23,10 @@ if (main && issueNum) {
         currentSection = current.textContent!;
         const publication = findPublication(publications, currentSection);
         if (publication) {
-          appendNode(current, <Toggle onClick={() => show(publication.id)} />);
+          appendNode(
+            current,
+            <Toggle onClick={() => toggleItem(publication.id)} />
+          );
         }
         continue;
       }
@@ -45,7 +39,10 @@ if (main && issueNum) {
           itemIndex
         );
         if (publication) {
-          appendNode(current, <Toggle onClick={() => show(publication.id)} />);
+          appendNode(
+            current,
+            <Toggle onClick={() => toggleItem(publication.id)} />
+          );
         }
       }
     }

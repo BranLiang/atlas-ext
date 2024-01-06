@@ -43,9 +43,31 @@ export const appendNode = (target: Element, node: ReactNode) => {
   root.render(node);
 };
 
+const appID = "atlas-extension-app";
+
 export const mountApp = () => {
   const app = document.createElement("div");
+  app.id = appID;
   document.body.appendChild(app);
   const root = createRoot(app);
   root.render(<App />);
+};
+
+export const toggleItem = (publicationId: number) => {
+  const event = new CustomEvent("atlas-ext-show", {
+    detail: {
+      publicationId,
+    },
+  });
+  window.dispatchEvent(event);
+  const app = document.getElementById(appID);
+  if (app) {
+    if (app.dataset.currentToggled === publicationId.toString()) {
+      delete app.dataset.currentToggled;
+      const hideEvent = new CustomEvent("atlas-ext-hide");
+      window.dispatchEvent(hideEvent);
+    } else {
+      app.dataset.currentToggled = publicationId.toString();
+    }
+  }
 };
