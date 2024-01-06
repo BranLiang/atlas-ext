@@ -39,9 +39,12 @@ const Link = styled.a`
   display: flex;
   justify-content: center;
   align-items: center;
+  &:hover {
+    color: #6b7280;
+  }
   &:hover > h2 {
     text-decoration: underline;
-    text-decoration-color: #8b5cf6;
+    text-decoration-color: #6b7280;
     text-decoration-thickness: 2px;
     text-underline-offset: 4px;
   }
@@ -73,7 +76,7 @@ const MarkdownWrapper = styled.div`
   }
 
   blockquote p,
-  blockquote li {
+  li {
     font-size: small;
     font-style: italic;
     font-weight: normal;
@@ -82,8 +85,8 @@ const MarkdownWrapper = styled.div`
     color: #6b7280;
   }
 
-  blockquote > ol,
-  blockquote > ul {
+  ol,
+  ul {
     padding-left: 20px; /* Adds padding to ordered and unordered lists inside blockquote */
   }
 
