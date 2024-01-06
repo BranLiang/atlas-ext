@@ -12,6 +12,7 @@ interface CustomEventDetail {
 
 const App: React.FC = () => {
   const [open, setOpen] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
   const [publications, setPublications] = React.useState<
     PublicationWithDescription[]
   >([]);
@@ -19,9 +20,17 @@ const App: React.FC = () => {
   const handleEvent = (event: CustomEvent<CustomEventDetail>) => {
     const { publicationId } = event.detail;
     setOpen(true);
-    fetchSimilarPublications(publicationId).then((publications) => {
-      setPublications(publications);
-    });
+    setLoading(true);
+    fetchSimilarPublications(publicationId)
+      .then((publications) => {
+        setPublications(publications);
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   const handleHide = () => {
@@ -46,7 +55,12 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <Sidebar open={open} publications={publications} handleHide={handleHide} />
+    <Sidebar
+      open={open}
+      publications={publications}
+      handleHide={handleHide}
+      loading={loading}
+    />
   );
 };
 

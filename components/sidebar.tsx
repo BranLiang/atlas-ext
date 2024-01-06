@@ -1,6 +1,6 @@
-import { XIcon } from "lucide-react";
+import { Loader2, XIcon } from "lucide-react";
 import React, { useRef, useEffect } from "react";
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import { PublicationWithDescription } from "../utils/api";
 import Publication from "./publication";
 
@@ -75,14 +75,54 @@ const CloseButton = styled.button<{ $open?: boolean }>`
         `}
 `;
 
+const rotate = keyframes`
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+`;
+
+const Loader = styled.div<{ $open?: boolean }>`
+  position: fixed;
+  top: 12px;
+  right: 412px;
+  background-color: #f3f4f6;
+  box-shadow: -4px 0px 10px rgba(0, 0, 0, 0.1);
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  cursor: pointer;
+  svg {
+    animation: ${rotate} 1s linear infinite;
+  }
+
+  ${(props) =>
+    props.$open
+      ? css`
+          transform: translateY(0);
+        `
+      : css`
+          transform: translateY(-200%);
+        `}
+`;
+
 interface SidebarProps {
   open: boolean;
+  loading: boolean;
   handleHide: () => void;
   publications: PublicationWithDescription[];
 }
 
 const Sidebar: React.FC<SidebarProps> = ({
   open,
+  loading,
   publications,
   handleHide,
 }) => {
@@ -103,9 +143,16 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <>
-      <CloseButton $open={open} onClick={handleHide}>
-        <XIcon size={18} strokeWidth={4} color="#6b7280" />
-      </CloseButton>
+      {loading && (
+        <Loader $open={open}>
+          <Loader2 size={18} strokeWidth={4} color="#6b7280" />
+        </Loader>
+      )}
+      {!loading && (
+        <CloseButton $open={open} onClick={handleHide}>
+          <XIcon size={18} strokeWidth={4} color="#6b7280" />
+        </CloseButton>
+      )}
       <Container $open={open} ref={containerRef}>
         <ContentContainer>
           {publications.map((publication, index) => (
