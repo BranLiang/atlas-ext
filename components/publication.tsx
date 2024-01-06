@@ -2,12 +2,10 @@ import { ExternalLink } from "lucide-react";
 import React from "react";
 import Markdown from "react-markdown";
 import styled from "styled-components";
+import { PublicationWithDescription } from "../utils/api";
 
 interface PublicationProps {
-  issueNumber: number;
-  title: string;
-  url: string | null;
-  content: string;
+  data: PublicationWithDescription;
 }
 
 const Wrapper = styled.div`
@@ -71,15 +69,22 @@ const MarkdownWrapper = styled.div`
     margin: 6px 0;
     padding-left: 1em;
     border-left: 0.5em solid #d1d5db;
+    background-color: #f3f4f6; /* Adds a light grey background to the blockquote */
   }
 
-  blockquote > p {
+  blockquote p,
+  blockquote li {
     font-size: small;
     font-style: italic;
     font-weight: normal;
     line-height: normal;
     font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande";
     color: #6b7280;
+  }
+
+  blockquote > ol,
+  blockquote > ul {
+    padding-left: 20px; /* Adds padding to ordered and unordered lists inside blockquote */
   }
 
   a {
@@ -97,15 +102,33 @@ const Header = styled.div`
   align-items: center;
   position: sticky;
   top: 36px;
-  padding: 6px 0;
+  padding-top: 6px;
   background-color: #f3f4f6;
 `;
 
+const SubHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+`;
+
+const SubHeaderDate = styled.div`
+  font-size: small;
+  color: #6b7280;
+`;
+
 const Publication: React.FC<PublicationProps> = ({
-  issueNumber,
-  title,
-  url,
-  content,
+  data: {
+    issue_id,
+    title,
+    url,
+    description,
+    issue_url,
+    issue_published_at,
+    section,
+    item_index,
+  },
 }) => {
   return (
     <Wrapper>
@@ -118,10 +141,20 @@ const Publication: React.FC<PublicationProps> = ({
         ) : (
           <Title>{title}</Title>
         )}
-        <IssueTag>Issue #{issueNumber}</IssueTag>
+        {issue_url && (
+          <Link href={issue_url} target="_blank">
+            <IssueTag>
+              #{issue_id}
+              {item_index && ` - ${section}`}
+            </IssueTag>
+          </Link>
+        )}
       </Header>
+      <SubHeader>
+        <SubHeaderDate>{issue_published_at}</SubHeaderDate>
+      </SubHeader>
       <MarkdownWrapper>
-        <Markdown skipHtml={true}>{content}</Markdown>
+        <Markdown skipHtml={true}>{description}</Markdown>
       </MarkdownWrapper>
     </Wrapper>
   );

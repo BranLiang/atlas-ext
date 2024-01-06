@@ -1,5 +1,5 @@
 import { XCircle } from "lucide-react";
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import styled, { css } from "styled-components";
 import { PublicationWithDescription } from "../utils/api";
 import Publication from "./publication";
@@ -80,20 +80,30 @@ const Sidebar: React.FC<SidebarProps> = ({
   handleClose,
   publications,
 }) => {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
+  function scrollToTop() {
+    if (containerRef.current) {
+      containerRef.current.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+  }
+
+  useEffect(() => {
+    scrollToTop();
+  }, [publications]);
+
   return (
-    <Container $open={open}>
+    <Container $open={open} ref={containerRef}>
       <CloseButton onClick={handleClose}>
         <XCircle />
       </CloseButton>
       <ContentContainer>
         {publications.map((publication, index) => (
           <React.Fragment key={publication.id}>
-            <Publication
-              issueNumber={publication.issue_id}
-              title={publication.title}
-              url={publication.url}
-              content={publication.description}
-            />
+            <Publication data={publication} />
             {index < publications.length - 1 && <Splitter />}
           </React.Fragment>
         ))}
