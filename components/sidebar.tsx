@@ -28,35 +28,6 @@ const Container = styled.div<{ $open?: boolean }>`
         `}
 `;
 
-const CloseButton = styled.button`
-  position: sticky;
-  top: 0;
-  right: 0;
-  left: 0;
-  height: 36px;
-  width: 100%;
-  border: none;
-  cursor: pointer;
-  outline: none;
-  background-color: #f3f4f6;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 20;
-  &:hover {
-    background-color: #e5e7eb;
-  }
-
-  svg {
-    color: #0c4a6e;
-  }
-
-  &:hover > svg {
-    color: #111827;
-  }
-`;
-
 const ContentContainer = styled.div`
   padding: 12px;
   padding-top: 0;
@@ -71,15 +42,10 @@ const Splitter = styled.hr`
 
 interface SidebarProps {
   open: boolean;
-  handleClose: () => void;
   publications: PublicationWithDescription[];
 }
 
-const Sidebar: React.FC<SidebarProps> = ({
-  open,
-  handleClose,
-  publications,
-}) => {
+const Sidebar: React.FC<SidebarProps> = ({ open, publications }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   function scrollToTop() {
@@ -97,9 +63,6 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <Container $open={open} ref={containerRef}>
-      <CloseButton onClick={handleClose}>
-        <XCircle />
-      </CloseButton>
       <ContentContainer>
         {publications.map((publication, index) => (
           <React.Fragment key={publication.id}>

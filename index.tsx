@@ -6,7 +6,6 @@ import {
   isSection,
   isSectionItem,
   mountApp,
-  toggleItem,
 } from "./utils/dom";
 
 const issueNum = getIusseNum();
@@ -23,10 +22,7 @@ if (main && issueNum) {
         currentSection = current.textContent!;
         const publication = findPublication(publications, currentSection);
         if (publication) {
-          appendNode(
-            current,
-            <Toggle onClick={() => toggleItem(publication.id)} />
-          );
+          appendNode(current, <Toggle id={publication.id} />);
         }
         continue;
       }
@@ -39,10 +35,7 @@ if (main && issueNum) {
           itemIndex
         );
         if (publication) {
-          appendNode(
-            current,
-            <Toggle onClick={() => toggleItem(publication.id)} />
-          );
+          appendNode(current, <Toggle id={publication.id} />);
         }
       }
     }

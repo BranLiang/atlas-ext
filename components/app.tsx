@@ -25,7 +25,6 @@ const App: React.FC = () => {
 
   const handleHide = () => {
     setOpen(false);
-    setPublications([]);
   };
 
   useEffect(() => {
@@ -41,13 +40,7 @@ const App: React.FC = () => {
     };
   }, []);
 
-  return (
-    <Sidebar
-      open={open}
-      handleClose={() => setOpen(false)}
-      publications={publications}
-    />
-  );
+  return <Sidebar open={open} publications={publications} />;
 };
 
 export default App;

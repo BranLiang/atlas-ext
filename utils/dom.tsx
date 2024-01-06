@@ -54,20 +54,26 @@ export const mountApp = () => {
 };
 
 export const toggleItem = (publicationId: number) => {
-  const event = new CustomEvent("atlas-ext-show", {
-    detail: {
-      publicationId,
-    },
-  });
-  window.dispatchEvent(event);
   const app = document.getElementById(appID);
-  if (app) {
-    if (app.dataset.currentToggled === publicationId.toString()) {
-      delete app.dataset.currentToggled;
-      const hideEvent = new CustomEvent("atlas-ext-hide");
-      window.dispatchEvent(hideEvent);
-    } else {
-      app.dataset.currentToggled = publicationId.toString();
-    }
+  if (!app) return;
+
+  const isToggled = app.dataset.currentToggled === publicationId.toString();
+
+  if (isToggled) {
+    delete app.dataset.currentToggled;
+    window.dispatchEvent(new CustomEvent("atlas-ext-hide"));
+  } else {
+    app.dataset.currentToggled = publicationId.toString();
+    window.dispatchEvent(
+      new CustomEvent("atlas-ext-show", {
+        detail: {
+          publicationId,
+        },
+      })
+    );
   }
+};
+export const currentToggled = () => {
+  const app = document.getElementById(appID);
+  return app?.dataset.currentToggled;
 };

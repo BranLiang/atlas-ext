@@ -101,7 +101,7 @@ const Header = styled.div`
   justify-content: space-between;
   align-items: center;
   position: sticky;
-  top: 36px;
+  top: 0;
   padding-top: 6px;
   background-color: #f3f4f6;
 `;
