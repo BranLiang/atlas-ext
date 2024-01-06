@@ -1,7 +1,7 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "IssueExplorer",
-  "version": "0.1",
+  "version": "0.1.1",
 
   "description": "Tailored for readers of Ruanyifeng's 科技爱好者周刊, it enhances each issue by providing relevant contents.",
 
@@ -16,8 +16,5 @@
       "js": ["source.js"]
     }
   ],
-  "permissions": [
-    "https://atlas.brancraft.com/api/publications.json",
-    "https://atlas.brancraft.com/api/publications/*.json"
-  ]
+  "permissions": ["webRequest"]
 }

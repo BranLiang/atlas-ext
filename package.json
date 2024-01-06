@@ -5,7 +5,8 @@
   "scripts": {
     "build": "bun build index.tsx --outdir build --minify",
     "build-firefox": "bun run build && cp build/index.js ext/firefox/source.js",
-    "package-firefox": "bun run build-firefox && cd ext/firefox && zip -r ../../build/firefox.zip *"
+    "package-firefox": "bun run build-firefox && cd ext/firefox && zip -r ../../build/firefox.zip *",
+    "package-source": "rm -rf node_modules && rm -rf build && zip -r ../source.zip *"
   },
   "devDependencies": {
     "@types/react": "^18.2.46",
