@@ -4,6 +4,7 @@ import {
   PublicationWithDescription,
   fetchSimilarPublications,
 } from "../utils/api";
+import { currentToggled, toggleItem } from "../utils/dom";
 
 interface CustomEventDetail {
   publicationId: number;
@@ -25,6 +26,10 @@ const App: React.FC = () => {
 
   const handleHide = () => {
     setOpen(false);
+    const currentPublicationId = currentToggled();
+    if (currentPublicationId) {
+      toggleItem(parseInt(currentPublicationId));
+    }
   };
 
   useEffect(() => {
@@ -40,7 +45,9 @@ const App: React.FC = () => {
     };
   }, []);
 
-  return <Sidebar open={open} publications={publications} />;
+  return (
+    <Sidebar open={open} publications={publications} handleHide={handleHide} />
+  );
 };
 
 export default App;

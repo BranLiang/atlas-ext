@@ -1,4 +1,4 @@
-import { XCircle } from "lucide-react";
+import { XIcon } from "lucide-react";
 import React, { useRef, useEffect } from "react";
 import styled, { css } from "styled-components";
 import { PublicationWithDescription } from "../utils/api";
@@ -40,12 +40,52 @@ const Splitter = styled.hr`
   margin: 12px 0;
 `;
 
+const CloseButton = styled.button<{ $open?: boolean }>`
+  position: fixed;
+  top: 12px;
+  right: 412px;
+  background-color: #f3f4f6;
+  box-shadow: -4px 0px 10px rgba(0, 0, 0, 0.1);
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+
+  svg {
+    transition: transform 0.3s ease-in-out;
+  }
+
+  &:hover svg {
+    transform: rotate(90deg);
+  }
+
+  ${(props) =>
+    props.$open
+      ? css`
+          transform: translateY(0);
+        `
+      : css`
+          transform: translateY(-200%);
+        `}
+`;
+
 interface SidebarProps {
   open: boolean;
+  handleHide: () => void;
   publications: PublicationWithDescription[];
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ open, publications }) => {
+const Sidebar: React.FC<SidebarProps> = ({
+  open,
+  publications,
+  handleHide,
+}) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   function scrollToTop() {
@@ -62,16 +102,21 @@ const Sidebar: React.FC<SidebarProps> = ({ open, publications }) => {
   }, [publications]);
 
   return (
-    <Container $open={open} ref={containerRef}>
-      <ContentContainer>
-        {publications.map((publication, index) => (
-          <React.Fragment key={publication.id}>
-            <Publication data={publication} />
-            {index < publications.length - 1 && <Splitter />}
-          </React.Fragment>
-        ))}
-      </ContentContainer>
-    </Container>
+    <>
+      <CloseButton $open={open} onClick={handleHide}>
+        <XIcon size={18} strokeWidth={4} color="#6b7280" />
+      </CloseButton>
+      <Container $open={open} ref={containerRef}>
+        <ContentContainer>
+          {publications.map((publication, index) => (
+            <React.Fragment key={publication.id}>
+              <Publication data={publication} />
+              {index < publications.length - 1 && <Splitter />}
+            </React.Fragment>
+          ))}
+        </ContentContainer>
+      </Container>
+    </>
   );
 };
 
