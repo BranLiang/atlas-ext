@@ -20,6 +20,7 @@ Tailored for readers of Ruanyifeng's 科技爱好者周刊, it enhances each iss
    ```bash
    bun run package
    ```
+   You should be able to find the package bunder `build/pkg.zip`
 
 ### Screenshorts
 
