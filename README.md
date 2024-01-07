@@ -16,9 +16,10 @@ Tailored for readers of Ruanyifeng's 科技爱好者周刊, it enhances each iss
    bun install
    ```
 
-3. **Build for Firefox:**
+3. **Build for Firefox/Chrome:**
    ```bash
-   bun run package
+   bun run package-firefox
+   bun run package-chrome
    ```
    You should be able to find the package bunder `build/pkg.zip`
 

@@ -1,5 +1,5 @@
 {
-  "manifest_version": 3,
+  "manifest_version": 2,
   "name": "IssueExplorer",
   "version": "0.1.1",
 
@@ -12,18 +12,11 @@
     "128": "icons/logo@128.png"
   },
 
-  "browser_specific_settings": {
-    "gecko": {
-      "id": "{decaa310-3df8-404e-8f44-82159d864896}",
-      "strict_min_version": "109.0"
-    }
-  },
-
   "content_scripts": [
     {
       "matches": ["https://www.ruanyifeng.com/blog/*/*/weekly-issue-*.html"],
       "js": ["source.js"]
     }
   ],
-  "permissions": ["webRequest"]
+  "permissions": ["https://atlas.brancraft.com/api/*"]
 }
