@@ -17,6 +17,5 @@
       "matches": ["https://www.ruanyifeng.com/blog/*/*/weekly-issue-*.html"],
       "js": ["source.js"]
     }
-  ],
-  "permissions": ["webRequest"]
+  ]
 }
